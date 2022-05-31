@@ -23,34 +23,25 @@ def print_report():
     print(f"Money: ${profit}")
 
 
-def check_sufficient_resource(drink):
-    menu_drink = MENU.get(drink.lower())
-    if menu_drink is not None:
-        drink_ingredients = menu_drink['ingredients']
-        if int(drink_ingredients['water']) > int(resources['water']):
-            print("Sorry there is not enough water.")
-            return False
-        elif int(drink_ingredients['milk']) > int(resources['milk']):
-            print("Sorry there is not enough milk.")
-            return False
-        elif int(drink_ingredients['coffee']) > int(resources['coffee']):
-            print("Sorry there is not enough coffee.")
-            return False
-        else:
-            return True
+def drink_exist(drink):
+    return MENU.get(drink.lower())
 
-    else:
-        print("Sorry, The option doesn't exist")
-        return False
 
+def check_sufficient_resource(drink_ingredients):
+    is_enough = True
+    for item in drink_ingredients:
+        if drink_ingredients[item] > resources[item]:
+            print(f"Sorry there is not enough {item}.")
+            is_enough = False
+    return is_enough
 
 def coffee_machine():
     choice = input("What would you like? (espresso/latte/cappuccino): ")
-
+    drink_selected = drink_exist(choice)
     if choice.lower() == "report":
         print_report()
-
-    print(check_sufficient_resource(choice))
+    if drink_selected is not None:
+        check_sufficient_resource(drink_selected["ingredients"])
 
     if choice.lower() != 'off':
         coffee_machine()
