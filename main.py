@@ -30,8 +30,18 @@ def check_sufficient_resource(drink):
         if int(drink_ingredients['water']) > int(resources['water']):
             print("Sorry there is not enough water.")
             return False
+        elif int(drink_ingredients['milk']) > int(resources['milk']):
+            print("Sorry there is not enough milk.")
+            return False
+        elif int(drink_ingredients['coffee']) > int(resources['coffee']):
+            print("Sorry there is not enough coffee.")
+            return False
+        else:
+            return True
+
     else:
-        return "heeeeeee"
+        print("Sorry, The option doesn't exist")
+        return False
 
 
 def coffee_machine():
