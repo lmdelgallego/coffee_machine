@@ -33,6 +33,7 @@ def check_sufficient_resource(drink):
     else:
         return "heeeeeee"
 
+
 def coffee_machine():
     choice = input("What would you like? (espresso/latte/cappuccino): ")
 
@@ -41,10 +42,10 @@ def coffee_machine():
 
     print(check_sufficient_resource(choice))
 
-
     if choice.lower() != 'off':
         coffee_machine()
     elif choice.lower() == 'off':
         print("Bye")
+
 
 coffee_machine()
