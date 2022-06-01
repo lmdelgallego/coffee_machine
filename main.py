@@ -1,7 +1,7 @@
 from menu import MENU
 
 resources = {
-    "water": 50,
+    "water": 300,
     "milk": 200,
     "coffee": 100,
 }
@@ -54,8 +54,14 @@ def is_transaction_successful(money_received, drink_cost):
         profit += drink_cost
         return True
     else:
-        print("Sorry that's not enough money. Money refunded")
+        print(f"Sorry that's not enough money. Money refunded ${round(money_received, 2)}")
         return False
+
+
+def make_coffee(drink_ingredients):
+    for item in drink_ingredients:
+        resources[item] = resources[item] - drink_ingredients[item]
+
 
 def coffee_machine():
     choice = input("What would you like? (espresso/latte/cappuccino): ")
@@ -66,8 +72,9 @@ def coffee_machine():
     if drink_selected is not None:
         if check_sufficient_resource(drink_selected["ingredients"]):
             payment = process_coins()
-            is_transaction_successful(payment, drink_selected['cost'])
-
+            if is_transaction_successful(payment, drink_selected['cost']):
+                make_coffee(drink_selected["ingredients"])
+                print(f"Here is your {choice.capitalize()}. Enjoy! ☕")
 
     if choice.lower() != 'off':
         coffee_machine()
